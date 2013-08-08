@@ -3,11 +3,17 @@ exports.getPages = function() {
         "pages": [
             {
                 "author": "Dennis",
-                "title": "Sample Page"
+                "title": "Sample Page",
+                "URL": "",
+                "visibility": "",
+                "template": ""
             },
             {
                 "author": "Dennis",
-                "title": "Terms of Services"
+                "title": "Terms of Services",
+                "URL": "",
+                "visibility": "",
+                "template": ""
             }
         ]
     };
