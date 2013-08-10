@@ -1,3 +1,7 @@
+// http://en.wikipedia.org/wiki/JSDoc
+
+
+
 var pages = exports.pages = {
     _validate: function(ob) {
         return {
