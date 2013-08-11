@@ -5,7 +5,7 @@
 
 ## Описание
 
-Тут будет описание
+Тут будет описание ;)
 
 
 
@@ -37,13 +37,10 @@
 
 
 ## Установка и запуск
-------------
 
 First be sure you have Node.js and npm installed.
 
-.. code:: bash
-
-    $ git clone https://github.com/igorbronowicki/insider
-    $ cd insider
-    $ $ npm install
-    $ $ node app.js
+$ git clone https://github.com/igorbronowicki/insider
+$ cd insider
+$ $ npm install
+$ $ node app.js
