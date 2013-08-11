@@ -1,4 +1,4 @@
-# Система управления сайтом INSIDER
+# CMS Insider
 
 
 
@@ -43,5 +43,5 @@ First be sure you have Node.js and npm installed.
 
     $ git clone https://github.com/igorbronowicki/insider
     $ cd insider
-    $ $ npm install
-    $ $ node app.js
+    $ npm install
+    $ node app.js
