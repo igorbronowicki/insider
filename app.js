@@ -1,5 +1,4 @@
-//var views = {};
-//var views.pages = require('./apps/pages');
+var views = require('./modules/pages/views');
 var ejs = require('ejs');
 ejs.open = '[%';
 ejs.close = '%]';
@@ -25,17 +24,13 @@ var adminPage = function(req, res) {
         title: "Control panel"
     });
 };
-var pagesJSON = function(req, res) {
-    var a = {pages:[{"title":"dro"}]};
-    res.json(200, a);
-};
 
 
 // URL dispatcher (URLconf in Django)
 app.get('/', homePage);
 
 app.get('/admin/', adminPage);
-app.get('/admin/pages.json', pagesJSON);
+app.get('/admin/pages.json', views.pages.read);
 
 
 // такое...

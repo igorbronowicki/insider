@@ -1,8 +1,6 @@
 // http://en.wikipedia.org/wiki/JSDoc
 
-
-
-var pages = exports.pages = {
+exports.pages = {
     _validate: function(ob) {
         return {
             "errors": {
@@ -37,23 +35,37 @@ var pages = exports.pages = {
             return {
                 "pages": [
                     {
-                        "author": "Dennis",
-                        "title": "Sample Page",
-                        "URL": "",
+                        "author": "Вася",
+                        "title": "Корпорация",
+                        "URL": "about",
                         "visibility": "",
                         "template": ""
                     },
                     {
-                        "author": "Igor",
-                        "title": "Sample Page2",
-                        "URL": "",
+                        "author": "Игорь",
+                        "title": "Продукция",
+                        "URL": "products",
                         "visibility": "",
                         "template": ""
                     },
                     {
-                        "author": "Dennis",
-                        "title": "Terms of Services",
-                        "URL": "",
+                        "author": "Игорь",
+                        "title": "Партнерство",
+                        "URL": "partnership",
+                        "visibility": "",
+                        "template": ""
+                    },
+                    {
+                        "author": "Женя",
+                        "title": "Пресс-центр",
+                        "URL": "press",
+                        "visibility": "",
+                        "template": ""
+                    },
+                    {
+                        "author": "Дима",
+                        "title": "Корпоративная ответственность",
+                        "URL": "corporate-responsibility",
                         "visibility": "",
                         "template": ""
                     }
