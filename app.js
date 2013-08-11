@@ -15,8 +15,13 @@ app.use('/static', express.static(__dirname + '/public'));
 
 // tmp
 var homePage = function(req, res) {
+//    var context = {
+//        module1: views.module1.render(),
+//        module2: views.module2.render(),
+//        module3: views.module3.render(),
+//    };
     res.render('base', {
-        title: "Control panel"
+        title: "Home page"
     });
 };
 var adminPage = function(req, res) {
@@ -29,7 +34,7 @@ var adminPage = function(req, res) {
 // URL dispatcher (URLconf in Django)
 app.get('/', homePage);
 
-app.get('/admin/', adminPage);
+app.get('/admin/', adminPage); // Как передавать управление локальному URLconf модуля? + тут может быть middleware Auth
 app.get('/admin/pages.json', views.pages.read);
 
 

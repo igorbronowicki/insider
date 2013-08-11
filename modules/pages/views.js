@@ -4,12 +4,12 @@ var models = require('./models');
 var templates = {};
 
 exports.pages = {
+    create: function(req, res) {
+
+    },
     read: function(req, res) {
         var pages = models.pages.read();
         res.json(200, pages);
-    },
-    create: function(req, res) {
-
     },
     update: function(req, res) {
 
