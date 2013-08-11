@@ -22,6 +22,7 @@
 + Hogan.js http://twitter.github.io/hogan.js/
 + MongoDB http://www.mongodb.org/
 + SQLite http://www.sqlite.org/
++ Markdown http://daringfireball.net/projects/markdown/
 + and more :)
 
 ### На клиенте
@@ -40,7 +41,7 @@
 
 First be sure you have Node.js and npm installed.
 
-$ git clone https://github.com/igorbronowicki/insider
-$ cd insider
-$ $ npm install
-$ $ node app.js
+    $ git clone https://github.com/igorbronowicki/insider
+    $ cd insider
+    $ $ npm install
+    $ $ node app.js
