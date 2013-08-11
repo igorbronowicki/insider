@@ -11,7 +11,7 @@ $(function(){
 
             $("button").click(function(){
                 $.ajax({
-                    url: "http://127.0.0.1:3000/v2/pages.json"
+                    url: "http://127.0.0.1:3000/admin/pages.json"
                 }).done(function(data) {
                         self.updateModel(data);
                     });

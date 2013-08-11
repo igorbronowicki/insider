@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+	<div id="column">
+
+		{% show_menu 1 2 0 2 'menu/navigator.html' %}
+
+	</div>
+
+
+	<div id="content">
+
+		{% placeholder "content" %}
+		{% include "ipsum.html" %}
+
+	</div>
+
+
+{% endblock %}
