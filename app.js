@@ -8,7 +8,7 @@ var app = express();
 
 // app configuration
 app.engine('html', require('ejs').__express);
-app.set('views', __dirname + '/templates');
+app.set('views', __dirname + '/modules');
 app.set('view engine', 'html');
 app.use('/static', express.static(__dirname + '/public'));
 

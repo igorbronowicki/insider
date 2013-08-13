@@ -7,7 +7,7 @@ exports.insider = {
         //        module2: views.module2.render(),
         //        module3: views.module3.render(),
         //    };
-        res.render('./insider/base', {
+        res.render('./insider/templates/base', {
             title: "Home page"
         });
     }

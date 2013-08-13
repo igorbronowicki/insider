@@ -2,7 +2,7 @@
 
 exports.admin = {
     main: function(req, res) {
-        res.render('./admin/index', {
+        res.render('./admin/templates/index', {
             title: "Control panel"
         });
     }
