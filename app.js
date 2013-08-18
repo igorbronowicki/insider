@@ -1,25 +1,21 @@
-var ejs = require('ejs');
-ejs.open = '[%';
-ejs.close = '%]';
+var express = require('express'),
+    mongoose = require('mongoose');
 
-var express = require('express');
+// Подключаемся к БД
+mongoose.connect("mongodb://localhost/insider");
+
+// Загружаем модели
+require('./modules/pages/models');
+
+// Создаем приложение изпользуя express
 var app = express();
 
+// Настраиваем express
+require('./express')(app);
 
-// app configuration
-app.engine('html', require('ejs').__express);
-app.set('views', __dirname + '/modules');
-app.set('view engine', 'html');
-app.use('/static', express.static(__dirname + '/public'));
+// Настраиваем маршрутизатор запросов
+require('./urls')(app);
 
-
-// URL dispatcher (URLconf in Django)
-app.get('/', require('./modules/insider/views').insider.main);
-
-app.get('/admin/', require('./modules/admin/views').admin.main); // Как передавать управление локальному URLconf модуля? + тут может быть middleware Auth
-app.get('/admin/pages.json', require('./modules/pages/views').pages.read);
-
-
-// такое...
+// Приложение будет слушать порт
 app.listen(3000);
-console.log('check 127.0.0.1:3000 out');
+console.log('Сheck 127.0.0.1:3000 out');

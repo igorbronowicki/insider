@@ -1,9 +1,9 @@
-// http://en.wikipedia.org/wiki/JSDoc
+/**
+ * View для главной страницы Admin
+ */
 
-exports.admin = {
-    main: function(req, res) {
-        res.render('./admin/templates/index', {
-            title: "Control panel"
-        });
-    }
+exports.home = function(req, res) {
+    res.render('./admin/templates/index', {
+        title: "Control panel"
+    });
 };

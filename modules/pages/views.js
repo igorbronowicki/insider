@@ -1,20 +1,18 @@
-// http://en.wikipedia.org/wiki/JSDoc
+var mongoose = require('mongoose'),
+    Page = mongoose.model('Page');
 
-var models = require('./models');
-var templates = {};
+/**
+ * Получить список всех страниц из БД и вернуть в виде JSON
+ */
 
-exports.pages = {
-    create: function(req, res) {
-
-    },
-    read: function(req, res) {
-        var pages = models.pages.read();
-        res.json(200, pages);
-    },
-    update: function(req, res) {
-
-    },
-    delete: function(req, res) {
-
-    }
+exports.read = function (req, res) {
+    Page.find({}, function(error, pages) {
+        if (error) {
+            // show error
+        } else {
+            res.json(200, {
+                "pages": pages
+            });
+        }
+    });
 };
