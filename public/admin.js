@@ -23,7 +23,10 @@ $(function(){
      * Коллекция страниц
      */
     app.collections.Pages = Backbone.Collection.extend({
-        //url: '/pages.json'
+        url: '/admin/pages.json',
+        parse: function(response) {
+            return response.pages;
+        }
     });
 
 
@@ -34,7 +37,7 @@ $(function(){
         el: $('#pages'),
         template: $('#tpl-pages').html(),
         initialize: function () {
-            this.collection.bind('reset', this.render, this);
+            this.collection.bind('add', this.render, this);
         },
         render: function(){
             var template = this.template;
@@ -48,18 +51,13 @@ $(function(){
     });
 
 
-    // xxx
+    // ???
     app.init();
 
 
-    // xxx
+    // tmp
     $("#xxx").click(function(){
-        //app.collections.pages.fetch();
-        $.ajax({
-            url: "http://127.0.0.1:3000/admin/pages.json"
-        }).done(function(data) {
-                app.collections.pages.reset(data.pages);
-            });
+        app.collections.pages.fetch();
     });
 });
 
