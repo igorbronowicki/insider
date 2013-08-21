@@ -79,7 +79,9 @@ exports.read = function(req, res) {
  * Find page by id
  */
 exports.load = function(req, res, next, id) {
-    Page.load(id, function(err, page) {
+    Page.findOne({
+        "_id": id
+    }, function(err, page) {
         if (err) return next(err);
         if (!page) return next(new Error('Failed to load article ' + id));
         req.page = page;

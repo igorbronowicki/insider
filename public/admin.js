@@ -22,7 +22,7 @@ $(function(){
 
     // Модель страницы
     app.models.Page = Backbone.Model.extend({
-        // code here
+        idAttribute: "_id"
     });
 
 
@@ -45,7 +45,14 @@ $(function(){
         el: $('#pages'),
         template: $('#tpl-pages').html(),
         initialize: function () {
-            this.collection.bind('add', this.render, this);
+            this.collection.bind('destroy', this.render, this);
+            this.collection.bind('reset', this.render, this); // этот this вместо нижней строки?
+            //_.bindAll(this, "_add", "_edit"); // актуально?
+        },
+        events: {
+            "click .add"            : "_add",
+            "click .edit"           : "_edit",
+            "click .delete"         : "_delete"
         },
         render: function(){
             var template = this.template;
@@ -55,6 +62,19 @@ $(function(){
             this.$el.html(Mustache.render(template, context));
 
             return this;
+        },
+        _add: function(e) {
+            // code here
+        },
+        _edit: function(e) {
+            var id = $(e.target).closest("[data-id]").attr("data-id");
+            var model = this.collection.get(id);
+            // code here
+        },
+        _delete: function(e) {
+            var id = $(e.target).closest("[data-id]").attr("data-id");
+            var model = this.collection.get(id);
+            model.destroy({wait: true});
         }
     });
 
@@ -65,7 +85,7 @@ $(function(){
 
     // tmp
     $("#xxx").click(function(){
-        app.collections.pages.fetch();
+        app.collections.pages.fetch({reset: true});
     });
 });
 
