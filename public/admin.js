@@ -9,6 +9,7 @@ $(function(){
     window.app = {
         views: {},
         collections: {},
+        models: {},
 
         init: function() {
             this.collections.pages = new this.collections.Pages;
@@ -19,11 +20,18 @@ $(function(){
     };
 
 
+    // Модель страницы
+    app.models.Page = Backbone.Model.extend({
+        // code here
+    });
+
+
     /**
      * Коллекция страниц
      */
     app.collections.Pages = Backbone.Collection.extend({
-        url: '/admin/pages.json',
+        model: app.models.Page,
+        url: '/api/pages',
         parse: function(response) {
             return response.pages;
         }

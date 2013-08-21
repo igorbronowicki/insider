@@ -23,8 +23,13 @@
     </div>
 
     <script id="tpl-pages" type="text/template">
+        <button type="button">add</button>
         {{#pages}}
-            <div><a href="{{URL}}">{{title}}</a></div>
+            <div data-id="{{_id}}">
+                <span>{{title}}</span>
+                <button type="button">edit</button>
+                <button type="button">delete</button>
+            </div>
         {{/pages}}
         {{^pages}}
             Страниц нет! :(
