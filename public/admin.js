@@ -12,10 +12,7 @@ $(function(){
         models: {},
 
         init: function() {
-            this.collections.pages = new this.collections.Pages;
-            this.views.pages = new this.views.Pages({
-                collection: this.collections.pages
-            });
+            // code here
         }
     };
 
@@ -43,38 +40,71 @@ $(function(){
      */
     app.views.Pages = Backbone.View.extend({
         el: $('#pages'),
+
         template: $('#tpl-pages').html(),
-        initialize: function () {
-            this.collection.bind('destroy', this.render, this);
-            this.collection.bind('reset', this.render, this); // этот this вместо нижней строки?
-            //_.bindAll(this, "_add", "_edit"); // актуально?
-        },
+
         events: {
-            "click .add"            : "_add",
+            "click .add"            : "_add"
+        },
+
+        initialize: function () {
+            this.listenTo(this.collection, 'add', this.addOne);
+            this.listenTo(this.collection, 'reset', this.addAll);
+
+            this.render();
+            this.collection.fetch({reset: true});
+        },
+
+        render: function(){
+            this.$el.html(Mustache.render(this.template, {}));
+            return this;
+        },
+
+        addOne: function (model) {
+            var page = new app.views.Page({model: model});
+            this.$(".list").append(page.render().el);
+        },
+
+        addAll: function () {
+            this.$(".list").empty();
+            this.collection.each(this.addOne, this);
+        },
+
+        _add: function(e) {
+            this.collection.create({title: "Корпорация0"}, {wait: true});
+        }
+    });
+
+
+    /**
+     * View для страницы
+     */
+    app.views.Page = Backbone.View.extend({
+        tagName:  'div',
+
+        template: $('#tpl-page').html(),
+
+        events: {
             "click .edit"           : "_edit",
             "click .delete"         : "_delete"
         },
-        render: function(){
-            var template = this.template;
-            var context = {
-                pages: this.collection.toJSON()
-            };
-            this.$el.html(Mustache.render(template, context));
 
+        initialize: function () {
+            this.listenTo(this.model, 'change', this.render);
+            this.listenTo(this.model, 'destroy', this.remove);
+        },
+
+        render: function () {
+            this.$el.html(Mustache.render(this.template, this.model.toJSON()));
             return this;
         },
-        _add: function(e) {
-            // code here
-        },
+
         _edit: function(e) {
-            var id = $(e.target).closest("[data-id]").attr("data-id");
-            var model = this.collection.get(id);
             // code here
         },
-        _delete: function(e) {
-            var id = $(e.target).closest("[data-id]").attr("data-id");
-            var model = this.collection.get(id);
-            model.destroy({wait: true});
+
+        _delete: function (e) {
+            this.model.destroy({wait: true});
         }
     });
 
@@ -85,7 +115,10 @@ $(function(){
 
     // tmp
     $("#xxx").click(function(){
-        app.collections.pages.fetch({reset: true});
+        app.collections.pages = new app.collections.Pages;
+        app.views.pages = new app.views.Pages({
+            collection: app.collections.pages
+        });
     });
 });
 

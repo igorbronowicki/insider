@@ -8,4 +8,5 @@ module.exports = function (app) {
     app.set('views', __dirname + '/modules');
     app.set('view engine', 'html');
     app.use('/static', express.static(__dirname + '/public'));
+    app.use(express.bodyParser());
 };

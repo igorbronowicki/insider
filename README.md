@@ -39,9 +39,7 @@
 
 ## Установка и запуск
 
-First be sure you have Node.js and npm installed.
-Во-вторых запустите mongod.exe.
-Для загрузки тестовых данных в БД воспользуйтесь setup.js
+First be sure you have Node.js and npm installed. Во-вторых запустите mongod.exe.
 
     $ git clone https://github.com/igorbronowicki/insider
     $ cd insider

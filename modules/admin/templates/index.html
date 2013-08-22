@@ -24,20 +24,24 @@
 
     <script id="tpl-pages" type="text/template">
         <button type="button" class="add">add</button>
-        {{#pages}}
-            <div data-id="{{_id}}">
-                <span>{{title}}</span>
-                <button type="button" class="edit">edit</button>
-                <button type="button" class="delete">delete</button>
-            </div>
-        {{/pages}}
-        {{^pages}}
-            Страниц нет! :(
-        {{/pages}}
+        <div class="list"></div>
     </script>
 
     <script id="tpl-page" type="text/template">
-        <label>xsxsxs *</label>
+        <span>{{title}}</span>
+        <button type="button" class="edit">edit</button>
+        <button type="button" class="delete">delete</button>
+    </script>
+
+    <script id="tpl-pageDetails" type="text/template">
+        <label>Title *</label>
+        <input name="title" type="text" value="" />
+
+        <label>URL *</label>
+        <input name="URL" type="text" />
+
+        <label>Text *</label>
+        <textarea name="body_html" rows="4" cols="50"></textarea>
     </script>
 </body>
 </html>
