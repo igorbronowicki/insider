@@ -12,15 +12,17 @@
     <script type="text/javascript" src="/static/admin.js"></script>
 </head>
 <body>
-    <button type="button" id="xxx">get pages</button>
+    <section>
+        <button type="button" id="xxx">get pages</button>
+    </section>
 
-    <div id="pages">
+    <section id="placeholder-list">
         <!-- This area will be filled by JavaScript -->
-    </div>
+    </section>
 
-    <div id="page">
+    <section id="placeholder-item">
         <!-- This area will be filled by JavaScript -->
-    </div>
+    </section>
 
     <script id="tpl-pages" type="text/template">
         <button type="button" class="add">add</button>
@@ -33,15 +35,17 @@
         <button type="button" class="delete">delete</button>
     </script>
 
-    <script id="tpl-pageDetails" type="text/template">
-        <label>Title *</label>
-        <input name="title" type="text" value="" />
+    <script id="tpl-page-details" type="text/template">
+        <label>Title *</label><br />
+        <input name="title" type="text" value="{{title}}" /><br />
 
-        <label>URL *</label>
-        <input name="URL" type="text" />
+        <label>URL *</label><br />
+        <input name="URL" type="text" value="{{URL}}" /><br />
 
-        <label>Text *</label>
-        <textarea name="body_html" rows="4" cols="50"></textarea>
+        <label>Text *</label><br />
+        <textarea name="body_html" rows="4" cols="30">{{body_html}}</textarea><br />
+
+        <button type="button" class="save">save</button>
     </script>
 </body>
 </html>

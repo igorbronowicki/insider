@@ -19,6 +19,7 @@ $(function(){
 
     // Модель страницы
     app.models.Page = Backbone.Model.extend({
+        urlRoot: '/api/pages',
         idAttribute: "_id"
     });
 
@@ -39,7 +40,7 @@ $(function(){
      * View для страниц
      */
     app.views.Pages = Backbone.View.extend({
-        el: $('#pages'),
+        tagName: 'div',
 
         template: $('#tpl-pages').html(),
 
@@ -51,7 +52,7 @@ $(function(){
             this.listenTo(this.collection, 'add', this.addOne);
             this.listenTo(this.collection, 'reset', this.addAll);
 
-            this.render();
+            $("#placeholder-list").empty().html(this.render().el);
             this.collection.fetch({reset: true});
         },
 
@@ -61,8 +62,8 @@ $(function(){
         },
 
         addOne: function (model) {
-            var page = new app.views.Page({model: model});
-            this.$(".list").append(page.render().el);
+            var view = new app.views.Page({model: model});
+            this.$(".list").append(view.render().el);
         },
 
         addAll: function () {
@@ -71,7 +72,10 @@ $(function(){
         },
 
         _add: function(e) {
-            this.collection.create({title: "Корпорация0"}, {wait: true});
+            new app.views.PageDetails({
+                model: new app.models.Page,
+                collection: this.collection
+            });
         }
     });
 
@@ -80,7 +84,7 @@ $(function(){
      * View для страницы
      */
     app.views.Page = Backbone.View.extend({
-        tagName:  'div',
+        tagName: 'div',
 
         template: $('#tpl-page').html(),
 
@@ -100,7 +104,10 @@ $(function(){
         },
 
         _edit: function(e) {
-            // code here
+            new app.views.PageDetails({
+                model: this.model,
+                collection: app.collections.pages
+            });
         },
 
         _delete: function (e) {
@@ -108,6 +115,51 @@ $(function(){
         }
     });
 
+
+    /**
+     * View для страницы с детальным описанием
+     */
+    app.views.PageDetails = Backbone.View.extend({
+        tagName: 'div',
+
+        template: $('#tpl-page-details').html(),
+
+        events: {
+            "click .save"           : "_save"
+        },
+
+        initialize: function () {
+            $("#placeholder-item").empty().html(this.render().el);
+        },
+
+        render: function () {
+            this.$el.html(Mustache.render(this.template, this.model.toJSON()));
+            return this;
+        },
+
+        serialize: function() {
+            var title = this.$('[name="title"]').val();
+            var URL = this.$('[name="URL"]').val();
+            var body_html = this.$('[name="body_html"]').val();
+
+            return {
+                "title": title,
+                "URL": URL,
+                "body_html": body_html
+            };
+        },
+
+        _save: function (e) {
+            var self = this;
+
+            this.model.save(this.serialize(), {
+                wait: true,
+                success: function(model) {
+                    self.collection.add(model);
+                }
+            });
+        }
+    });
 
     // ???
     app.init();
