@@ -52,13 +52,14 @@ $(function(){
         initialize: function () {
             this.listenTo(this.collection, 'add', this.addOne);
             this.listenTo(this.collection, 'reset', this.addAll);
-
-            $("#placeholder-list").empty().html(this.render().el);
+            this.render();
             this.collection.fetch({reset: true});
         },
 
         render: function(){
             this.$el.html(Mustache.render(this.template, {}));
+            $("#placeholder-list").empty().html(this.el);
+
             return this;
         },
 
@@ -73,7 +74,7 @@ $(function(){
         },
 
         _add: function(e) {
-            new app.views.PageDetails({
+            app.views.pageDetails = new app.views.PageDetails({
                 model: new app.models.Page,
                 collection: this.collection
             });
@@ -106,7 +107,7 @@ $(function(){
         },
 
         _edit: function(e) {
-            new app.views.PageDetails({
+            app.views.pageDetails = new app.views.PageDetails({
                 model: this.model,
                 collection: app.collections.pages
             });
@@ -132,11 +133,14 @@ $(function(){
         },
 
         initialize: function () {
-            $("#placeholder-item").empty().html(this.render().el);
+            this.listenTo(this.model, 'destroy', this.remove);
+            this.render();
         },
 
         render: function () {
             this.$el.html(Mustache.render(this.template, this.model.toJSON()));
+            $("#placeholder-item").empty().html(this.el);
+
             return this;
         },
 
