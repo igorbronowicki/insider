@@ -10,9 +10,11 @@ $(function(){
         views: {},
         collections: {},
         models: {},
+        routers: {},
 
         init: function() {
-            // code here
+            app.routers.main = new app.routers.Main();
+            Backbone.history.start({pushState: true});
         }
     };
 
@@ -59,8 +61,6 @@ $(function(){
 
         render: function(){
             this.$el.html(Mustache.render(this.template, {}));
-            $("#placeholder-list").empty().html(this.el);
-
             return this;
         },
 
@@ -170,16 +170,49 @@ $(function(){
         }
     });
 
-    // ???
+
+    /**
+     * Router нашего приложения.
+     */
+    app.routers.Main = Backbone.Router.extend({
+        routes: {
+            "": "index",
+            "admin/pages": "pages",
+            //"admin/pages/:pageId": "pageDetails",
+            "*foo": "index"
+        },
+        initialize: function() {
+            // code here
+        },
+        index: function() {
+            // code here
+        },
+        pages: function() {
+            app.collections.pages = new app.collections.Pages;
+            app.views.pages = new app.views.Pages({
+                collection: app.collections.pages
+            });
+//            app.collections.pages.fetch({
+//                success: function(collection) {
+//                    app.views.pages = new app.views.Pages({
+//                        collection: collection
+//                    });
+//                }
+//            });
+            $("#placeholder-list").empty().html(app.views.pages.render().el);
+        }
+    });
+
+
+    /**
+     * Инициализация нашего приложения
+     */
     app.init();
 
 
     // tmp
     $("#xxx").click(function(){
-        app.collections.pages = new app.collections.Pages;
-        app.views.pages = new app.views.Pages({
-            collection: app.collections.pages
-        });
+        Backbone.history.navigate("admin/pages", {trigger: true, replace: false});
     });
 });
 
