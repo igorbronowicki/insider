@@ -42,6 +42,7 @@ $(function(){
     app.views.Pages = Backbone.View.extend({
         tagName: 'div',
         id: 'pages',
+        className: 'palette',
 
         template: $('#tpl-pages').html(),
 
@@ -125,6 +126,7 @@ $(function(){
     app.views.PageDetails = Backbone.View.extend({
         tagName: 'div',
         id: 'page-details',
+        className: 'palette',
 
         template: $('#tpl-page-details').html(),
 
