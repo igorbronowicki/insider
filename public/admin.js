@@ -137,6 +137,7 @@ $(function(){
         initialize: function () {
             this.listenTo(this.model, 'destroy', this.remove);
             this.render();
+            //model.fetch
         },
 
         render: function () {
