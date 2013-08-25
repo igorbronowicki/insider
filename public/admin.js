@@ -25,7 +25,6 @@ $(function(){
         idAttribute: "_id",
 
         validate: function(attributes, options) {
-            var flag = false;
             var result = {
                 "errors": {
                     "title": [],
@@ -47,11 +46,7 @@ $(function(){
                 result.errors.body_html.push("Please enter a text.");
             }
 
-            _.each(result.errors, function(value, key, list) {
-                if (value.length) return flag = true;
-            });
-
-            if (flag) return result;
+            if (_.every(result.errors, function(value) {return !!value.length;})) return result;
         }
     });
 
