@@ -201,7 +201,7 @@ $(function(){
             this.model.set(this.serialize());
             this.model.save(null, {
                 wait: true,
-                success: function(model) {
+                success: function(model, response, options) {
                     self.collection.add(model);
                 }
             });
