@@ -169,6 +169,7 @@ $(function(){
         initialize: function () {
             this.listenTo(this.model, 'destroy', this.remove);
             this.listenTo(this.model, 'invalid', this.render);
+            this.listenTo(this.model, 'sync', this.render);
             //model.fetch
         },
 
@@ -202,7 +203,6 @@ $(function(){
                 wait: true,
                 success: function(model) {
                     self.collection.add(model);
-                    self.render();
                 }
             });
         }
