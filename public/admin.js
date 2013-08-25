@@ -22,7 +22,37 @@ $(function(){
     // Модель страницы
     app.models.Page = Backbone.Model.extend({
         urlRoot: '/api/pages',
-        idAttribute: "_id"
+        idAttribute: "_id",
+
+        validate: function(attributes, options) {
+            var flag = false;
+            var result = {
+                "errors": {
+                    "title": [],
+                    "URL": [],
+                    "body_html": []
+                }
+            };
+
+            if (attributes.title == "") {
+                result.errors.title.push("Please enter a title.");
+                result.errors.title.push("Don't be shy!");
+            }
+
+            if (attributes.URL == "") {
+                result.errors.URL.push("Please enter a URL.");
+            }
+
+            if (attributes.body_html == "") {
+                result.errors.body_html.push("Please enter a text.");
+            }
+
+            _.each(result.errors, function(value, key, list) {
+                if (value.length) return flag = true;
+            });
+
+            if (flag) return result;
+        }
     });
 
 
@@ -79,6 +109,7 @@ $(function(){
                 model: new app.models.Page,
                 collection: this.collection
             });
+            $("#placeholder-item").empty().html(app.views.pageDetails.render().el);
         }
     });
 
@@ -112,6 +143,7 @@ $(function(){
                 model: this.model,
                 collection: app.collections.pages
             });
+            $("#placeholder-item").empty().html(app.views.pageDetails.render().el);
         },
 
         _delete: function (e) {
@@ -136,13 +168,16 @@ $(function(){
 
         initialize: function () {
             this.listenTo(this.model, 'destroy', this.remove);
-            this.render();
+            this.listenTo(this.model, 'invalid', this.render);
             //model.fetch
         },
 
         render: function () {
-            this.$el.html(Mustache.render(this.template, this.model.toJSON()));
-            $("#placeholder-item").empty().html(this.el);
+            var context = {
+                page: this.model.toJSON(),
+                errors: (this.model.validationError) ? this.model.validationError.errors : null
+            };
+            this.$el.html(Mustache.render(this.template, context));
 
             return this;
         },
@@ -162,10 +197,12 @@ $(function(){
         _save: function (e) {
             var self = this;
 
-            this.model.save(this.serialize(), {
+            this.model.set(this.serialize());
+            this.model.save(null, {
                 wait: true,
                 success: function(model) {
                     self.collection.add(model);
+                    self.render();
                 }
             });
         }

@@ -39,13 +39,16 @@
 
     <script id="tpl-page-details" type="text/template">
         <label>Title *</label><br />
-        <input name="title" type="text" value="{{title}}" /><br />
+        <input name="title" type="text" value="{{page.title}}" /><br />
+        {{#errors.title}}<em>{{.}}</em><br />{{/errors.title}}
 
         <label>URL *</label><br />
-        <input name="URL" type="text" value="{{URL}}" /><br />
+        <input name="URL" type="text" value="{{page.URL}}" /><br />
+        {{#errors.URL}}<em>{{.}}</em><br />{{/errors.URL}}
 
         <label>Text *</label><br />
-        <textarea name="body_html" rows="4" cols="30">{{body_html}}</textarea><br />
+        <textarea name="body_html" rows="4" cols="30">{{page.body_html}}</textarea><br />
+        {{#errors.body_html}}<em>{{.}}</em><br />{{/errors.body_html}}
 
         <button type="button" class="save">save</button>
     </script>
