@@ -108,7 +108,7 @@ $(function(){
                 model: new app.models.Page,
                 collection: this.collection
             });
-            $("#placeholder-item").empty().html(app.views.pageDetails.render().el);
+            $("#container-item").empty().html(app.views.pageDetails.render().el);
         }
     });
 
@@ -142,7 +142,7 @@ $(function(){
                 model: this.model,
                 collection: app.collections.pages
             });
-            $("#placeholder-item").empty().html(app.views.pageDetails.render().el);
+            $("#container-item").empty().html(app.views.pageDetails.render().el);
         },
 
         _delete: function (e) {
@@ -237,7 +237,7 @@ $(function(){
 //                    });
 //                }
 //            });
-            $("#placeholder-list").empty().html(app.views.pages.render().el);
+            $("#container-list").empty().html(app.views.pages.render().el);
         }
     });
 
