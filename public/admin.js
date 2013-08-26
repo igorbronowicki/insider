@@ -46,7 +46,11 @@ $(function(){
                 result.errors.body_html.push("Please enter a text.");
             }
 
-            if (_.every(result.errors, function(value) {return !!value.length;})) return result;
+            // Returns true if any of the values in the list pass the iterator truth test.
+            var flag = _.some(result.errors, function(value) {
+                return !!value.length;
+            });
+            if (flag) return result;
         }
     });
 
@@ -197,6 +201,7 @@ $(function(){
             this.model.save(null, {
                 wait: true,
                 success: function(model, response, options) {
+                    self.model.set(response.page);
                     self.collection.add(model);
                 }
             });
