@@ -42,6 +42,9 @@
         <input name="title" type="text" value="{{page.title}}" /><br />
         {{#errors.title}}<em>{{.}}</em><br />{{/errors.title}}
 
+        <label>Published</label><br />
+        <input name="published" type="checkbox" {{#page.published}}checked="checked"{{/page.published}} /><br />
+
         <label>URL *</label><br />
         <input name="URL" type="text" value="{{page.URL}}" /><br />
         {{#errors.URL}}<em>{{.}}</em><br />{{/errors.URL}}

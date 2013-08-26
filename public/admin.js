@@ -24,6 +24,10 @@ $(function(){
         urlRoot: '/api/pages',
         idAttribute: "_id",
 
+        defaults: {
+            "published": true
+        },
+
         validate: function(attributes, options) {
             var result = {
                 "errors": {
@@ -184,11 +188,13 @@ $(function(){
 
         serialize: function() {
             var title = this.$('[name="title"]').val();
+            var published = this.$('[name="published"]').is(":checked");
             var URL = this.$('[name="URL"]').val();
             var body_html = this.$('[name="body_html"]').val();
 
             return {
                 "title": title,
+                "published": published,
                 "URL": URL,
                 "body_html": body_html
             };

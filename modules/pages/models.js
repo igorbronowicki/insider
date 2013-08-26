@@ -17,7 +17,8 @@ var PageSchema = new Schema({
     "URL": String,
     "visibility": String,
     "updated_at": String,
-    "template_suffix": String
+    "template_suffix": String,
+    "published": String
 });
 
 mongoose.model('Page', PageSchema);
