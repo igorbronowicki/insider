@@ -178,7 +178,7 @@ $(function(){
 
         render: function () {
             var context = {
-                page: this.model.toJSON(),
+                page: (this.model.validationError) ? this.serialize() : this.model.toJSON(),
                 errors: (this.model.validationError) ? this.model.validationError.errors : null
             };
             this.$el.html(Mustache.render(this.template, context));
@@ -203,8 +203,7 @@ $(function(){
         _save: function (e) {
             var self = this;
 
-            this.model.set(this.serialize());
-            this.model.save(null, {
+            this.model.save(this.serialize(), {
                 wait: true,
                 success: function(model, response, options) {
                     self.model.set(response.page);
