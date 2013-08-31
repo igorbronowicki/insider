@@ -83,7 +83,7 @@ exports.load = function(req, res, next, id) {
         "_id": id
     }, function(err, page) {
         if (err) return next(err);
-        if (!page) return next(new Error('Failed to load article ' + id));
+        if (!page) return next(new Error('Failed to load page ' + id));
         req.page = page;
         next();
     });
