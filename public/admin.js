@@ -26,6 +26,7 @@ $(function(){
         routes: {
             "": "index",
             "admin/pages": "pages",
+            "admin/employees": "employees",
             //"admin/pages/:pageId": "pageDetails",
             "*foo": "index"
         },
@@ -48,12 +49,22 @@ $(function(){
 //                }
 //            });
             $("#container-list").empty().html(app.views.pages.render().el);
+        },
+        employees: function() {
+            app.collections.employees = new app.collections.Employees;
+            app.views.employees = new app.views.Employees({
+                collection: app.collections.employees
+            });
+            $("#container-list").empty().html(app.views.employees.render().el);
         }
     });
 
 
     // tmp
-    $("#xxx").click(function(){
+    $("#xxx-pages").click(function(){
         Backbone.history.navigate("admin/pages", {trigger: true, replace: false});
+    });
+    $("#xxx-employees").click(function(){
+        Backbone.history.navigate("admin/employees", {trigger: true, replace: false});
     });
 });

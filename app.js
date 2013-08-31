@@ -6,6 +6,7 @@ mongoose.connect("mongodb://localhost/insider");
 
 // Загружаем модели
 require('./modules/pages/models');
+require('./modules/employees/models');
 
 // Создаем приложение изпользуя express
 var app = express();

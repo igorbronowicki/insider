@@ -18,7 +18,8 @@
 <body>
     <section>
         <div id="modules" class="palette">
-            <button type="button" id="xxx">get pages</button>
+            <button type="button" id="xxx-pages">get pages</button><br />
+            <button type="button" id="xxx-employees">get employees</button>
         </div>
     </section>
 
@@ -56,6 +57,40 @@
         <label>Text *</label><br />
         <textarea name="body_html" rows="4" cols="30">{{page.body_html}}</textarea><br />
         {{#errors.body_html}}<em>{{.}}</em><br />{{/errors.body_html}}
+
+        <button type="button" class="save">save</button>
+    </script>
+
+    <script id="tpl-employees" type="text/template">
+        <button type="button" class="add">add</button>
+        <div class="list"></div>
+    </script>
+
+    <script id="tpl-employee" type="text/template">
+        <span class="title">{{full_name}}</span>
+        <button type="button" class="edit">edit</button>
+        <button type="button" class="delete">delete</button>
+    </script>
+
+    <script id="tpl-employee-details" type="text/template">
+        <label>Full name *</label><br />
+        <input name="full_name" type="text" value="{{employee.full_name}}" /><br />
+        {{#errors.full_name}}<em>{{.}}</em><br />{{/errors.full_name}}
+
+        <label>Published</label><br />
+        <input name="published" type="checkbox" {{#employee.published}}checked="checked"{{/employee.published}} /><br />
+
+        <label>Position *</label><br />
+        <input name="position" type="text" value="{{employee.position}}" /><br />
+        {{#errors.position}}<em>{{.}}</em><br />{{/errors.position}}
+
+        <label>Photo *</label><br />
+        <input name="photo" type="file" /><br />
+        {{#errors.photo}}<em>{{.}}</em><br />{{/errors.photo}}
+
+        <label>Story *</label><br />
+        <textarea name="story" rows="4" cols="30">{{employee.story}}</textarea><br />
+        {{#errors.story}}<em>{{.}}</em><br />{{/errors.story}}
 
         <button type="button" class="save">save</button>
     </script>
