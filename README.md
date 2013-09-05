@@ -31,6 +31,7 @@
 + Underscore.js 1.5.1 http://underscorejs.org/
 + jQuery 2.0.3 http://jquery.com/
 + Mustache.js http://mustache.github.io/
++ Handlebars.js http://handlebarsjs.com/
 + LESS http://lesscss.org/
 + and more :)
 
