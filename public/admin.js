@@ -48,14 +48,14 @@ $(function(){
 //                    });
 //                }
 //            });
-            $("#container-list").empty().html(app.views.pages.render().el);
+            $("#container-entities").empty().html(app.views.pages.render().el);
         },
         employees: function() {
             app.collections.employees = new app.collections.Employees;
             app.views.employees = new app.views.Employees({
                 collection: app.collections.employees
             });
-            $("#container-list").empty().html(app.views.employees.render().el);
+            $("#container-entities").empty().html(app.views.employees.render().el);
         }
     });
 
@@ -63,8 +63,10 @@ $(function(){
     // tmp
     $("#xxx-pages").click(function(){
         Backbone.history.navigate("admin/pages", {trigger: true, replace: false});
+        return false; /* tmp */
     });
     $("#xxx-employees").click(function(){
         Backbone.history.navigate("admin/employees", {trigger: true, replace: false});
+        return false; /* tmp */
     });
 });

@@ -6,6 +6,7 @@
     <link rel="stylesheet/less" type="text/css" href="/static/admin.less" />
     <script type="text/javascript" src="/static/less.js"></script>
     <script type="text/javascript" src="/static/jquery.js"></script>
+    <script type="text/javascript" src="/static/jquery.nestable.js"></script>
     <script type="text/javascript" src="/static/underscore.js"></script>
     <script type="text/javascript" src="/static/mustache.js"></script>
     <script type="text/javascript" src="/static/handlebars.js"></script>
@@ -17,24 +18,104 @@
     <script type="text/javascript" src="/static/admin.init.js"></script>
 </head>
 <body>
-    <section>
-        <div id="modules" class="palette">
-            <button type="button" id="xxx-pages">get pages</button><br />
-            <button type="button" id="xxx-employees">get employees</button>
-        </div>
+    <header id="header">
+
+    </header>
+
+    <section id="container-modules">
+        <nav id="modules">
+            <a href="#" id="xxx-pages">Страницы</a>
+            <a href="#" id="xxx-employees">Сотрудники</a>
+        </nav>
     </section>
 
-    <section id="container-list">
+    <section id="container-entities">
         <!-- This area will be filled by JavaScript -->
     </section>
 
-    <section id="container-item">
+    <section id="container-editing">
         <!-- This area will be filled by JavaScript -->
     </section>
 
     <script id="tpl-pages" type="text/template">
-        <button type="button" class="add">add</button>
-        <div class="list"></div>
+        <div class="actions">
+            <div class="actions-group" id="xxx-nestable-menu">
+                <button type="button" class="action" data-action="expand-all">Expand All</button>
+                <button type="button" class="action" data-action="collapse-all">Collapse All</button>
+            </div>
+
+            <button type="button" class="action add">Add</button>
+        </div>
+
+        <div class="entities list">
+            <!-- This area will be filled by JavaScript -->
+        </div>
+
+        <div class="entities dd" id="xxx-nestable">
+            <ol class="dd-list">
+                <li class="dd-item">
+                    <div class="dd-handle">
+                        <button type="button">tmp1</button>
+                    </div>
+                </li>
+                <li class="dd-item">
+                    <div class="dd-handle">
+                        <button type="button">tmp2</button>
+                    </div>
+                </li>
+
+                <li class="dd-item">
+                    <div class="dd-handle">
+                        <button type="button">tmp3</button>
+                    </div>
+
+
+                    <ol class="dd-list">
+                        <li class="dd-item">
+                            <div class="dd-handle">
+                                <button type="button">tmp4</button>
+                            </div>
+                        </li>
+                        <li class="dd-item">
+                            <div class="dd-handle">
+                                <button type="button">tmp5</button>
+                            </div>
+                        </li>
+                        <li class="dd-item">
+                            <div class="dd-handle">
+                                <button type="button">tmp6</button>
+                            </div>
+                        </li>
+                        <li class="dd-item">
+                            <div class="dd-handle">
+                                <button type="button">tmp7</button>
+                            </div>
+                        </li>
+                        <li class="dd-item">
+                            <div class="dd-handle">
+                                <button type="button">tmp8</button>
+                            </div>
+                        </li>
+                    </ol>
+                </li>
+
+                <li class="dd-item">
+                    <div class="dd-handle">
+                        <button type="button">tmp9</button>
+                    </div>
+                </li>
+                <li class="dd-item">
+                    <div class="dd-handle">
+                        <button type="button">tmp10</button>
+                    </div>
+                </li>
+                <li class="dd-item">
+                    <div class="dd-handle">
+                        <button type="button">tmp11</button>
+                    </div>
+                </li>
+            </ol>
+        </div>
     </script>
 
     <script id="tpl-page" type="text/template">
@@ -44,27 +125,55 @@
     </script>
 
     <script id="tpl-page-details" type="text/template">
-        <label>Title *</label><br />
-        <input name="title" type="text" value="{{page.title}}" /><br />
-        {{#errors.title}}<em>{{.}}</em><br />{{/errors.title}}
+        <div class="actions">
+            <button type="button" class="action primary save">Save</button>
+        </div>
 
-        <label>Published</label><br />
-        <input name="published" type="checkbox" {{#page.published}}checked="checked"{{/page.published}} /><br />
+        <fieldset class="editing fieldset inline">
+            <legend class="legend">Properties</legend>
 
-        <label>URL *</label><br />
-        <input name="URL" type="text" value="{{page.URL}}" /><br />
-        {{#errors.URL}}<em>{{.}}</em><br />{{/errors.URL}}
+            <div class="field required">
+                <label for="_title" class="label">Title</label>
+                <div class="control">
+                    <input id="_title" name="title" type="text" value="{{page.title}}" class="{{#errors.title}}error {{/errors.title}}" />
+                    {{#errors.title}}<div class="error">{{.}}</div>{{/errors.title}}
+                </div>
+            </div>
 
-        <label>Text *</label><br />
-        <textarea name="body_html" rows="4" cols="30">{{page.body_html}}</textarea><br />
-        {{#errors.body_html}}<em>{{.}}</em><br />{{/errors.body_html}}
+            <div class="field">
+                <label for="_published" class="label">Published</label>
+                <div class="control">
+                    <input id="_published" name="published" type="checkbox" {{#page.published}}checked="checked"{{/page.published}} />
+                </div>
+            </div>
 
-        <button type="button" class="save">save</button>
+            <div class="field required">
+                <label for="_URL" class="label">URL</label>
+                <div class="control">
+                    <input class="{{#errors.URL}}error {{/errors.URL}}" id="_URL" name="URL" type="text" value="{{page.URL}}" /><br />
+                    {{#errors.URL}}<div class="error">{{.}}</div>{{/errors.URL}}
+                    <div class="note">Тут может быть подсказка.</div>
+                </div>
+            </div>
+
+            <div class="field required">
+                <label for="_body_html" class="label">Text</label>
+                <div class="control">
+                    <textarea class="{{#errors.body_html}}error {{/errors.body_html}}" id="_body_html" name="body_html" rows="4" cols="30">{{page.body_html}}</textarea>
+                    {{#errors.body_html}}<div class="error">{{.}}</div>{{/errors.body_html}}
+                </div>
+            </div>
+        </fieldset>
     </script>
 
     <script id="tpl-employees" type="text/template">
-        <button type="button" class="add">add</button>
-        <div class="list"></div>
+        <div class="actions">
+            <button type="button" class="action add">Add</button>
+        </div>
+
+        <div class="entities list">
+            <!-- This area will be filled by JavaScript -->
+        </div>
     </script>
 
     <script id="tpl-employee" type="text/template">
@@ -74,26 +183,53 @@
     </script>
 
     <script id="tpl-employee-details" type="text/template">
-        <label>Full name *</label><br />
-        <input name="full_name" type="text" value="{{employee.full_name}}" /><br />
-        {{#errors.full_name}}<em>{{.}}</em><br />{{/errors.full_name}}
+        <div class="actions">
+            <button type="button" class="action primary save">Save</button>
+        </div>
 
-        <label>Published</label><br />
-        <input name="published" type="checkbox" {{#employee.published}}checked="checked"{{/employee.published}} /><br />
+        <fieldset class="editing fieldset">
+            <legend class="legend">Properties</legend>
 
-        <label>Position *</label><br />
-        <input name="position" type="text" value="{{employee.position}}" /><br />
-        {{#errors.position}}<em>{{.}}</em><br />{{/errors.position}}
+            <div class="field required">
+                <label for="_full_name" class="label">Full name</label>
+                <div class="control">
+                    <input id="_full_name" name="full_name" type="text" value="{{employee.full_name}}" class="{{#errors.full_name}}error {{/errors.full_name}}" />
+                    {{#errors.full_name}}<div class="error">{{.}}</div>{{/errors.full_name}}
+                    <div class="note"><strong>Внимание!</strong> Тут может быть подсказка</div>
+                </div>
+            </div>
 
-        <label>Photo *</label><br />
-        <input name="photo" type="file" /><br />
-        {{#errors.photo}}<em>{{.}}</em><br />{{/errors.photo}}
+            <div class="field">
+                <label for="_published" class="label">Published</label>
+                <div class="control">
+                    <input id="_published" name="published" type="checkbox" {{#employee.published}}checked="checked"{{/employee.published}} />
+                </div>
+            </div>
 
-        <label>Story *</label><br />
-        <textarea name="story" rows="4" cols="30">{{employee.story}}</textarea><br />
-        {{#errors.story}}<em>{{.}}</em><br />{{/errors.story}}
+            <div class="field required">
+                <label for="_position" class="label">Position</label>
+                <div class="control">
+                    <input class="{{#errors.position}}error {{/errors.position}}" id="_position" name="position" type="text" value="{{employee.position}}" />
+                    {{#errors.position}}<div class="error">{{.}}</div>{{/errors.position}}
+                </div>
+            </div>
 
-        <button type="button" class="save">save</button>
+            <div class="field required">
+                <label for="_photo" class="label">Photo</label>
+                <div class="control">
+                    <input class="{{#errors.photo}}error {{/errors.photo}}" id="_photo" name="photo" type="file" />
+                    {{#errors.photo}}<div class="error">{{.}}</div>{{/errors.photo}}
+                </div>
+            </div>
+
+            <div class="field required">
+                <label for="_story" class="label">Story</label>
+                <div class="control">
+                    <textarea class="{{#errors.story}}error {{/errors.story}}" id="_story" name="story" rows="4" cols="30">{{employee.story}}</textarea>
+                    {{#errors.story}}<div class="error">{{.}}</div>{{/errors.story}}
+                </div>
+            </div>
+        </fieldset>
     </script>
 </body>
 </html>

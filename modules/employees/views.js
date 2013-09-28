@@ -42,6 +42,11 @@ exports.delete = function(req, res) {
  * Create a employee
  */
 exports.create = function(req, res) {
+//    console.log(req.files.photo.name, "--req.files.photo.name");
+//    console.log(req.files.photo.size, "--req.files.photo.size");
+//    console.log(req.files.photo.path, "--req.files.photo.path");
+//    console.log(req.files.photo.path.split("\\").slice(-1)[0], "--url"); // \\ потому что Windows?
+//    console.dir(req.files, "--req.files");
     var employee = new Employee(req.body);
 
     employee.save(function(err) {

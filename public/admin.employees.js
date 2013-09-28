@@ -96,7 +96,7 @@ $(function(){
                 model: new app.models.Employee,
                 collection: this.collection
             });
-            $("#container-item").empty().html(app.views.employeeDetails.render().el);
+            $("#container-editing").empty().html(app.views.employeeDetails.render().el);
         }
     });
 
@@ -130,7 +130,7 @@ $(function(){
                 model: this.model,
                 collection: app.collections.employees
             });
-            $("#container-item").empty().html(app.views.employeeDetails.render().el);
+            $("#container-editing").empty().html(app.views.employeeDetails.render().el);
         },
 
         _delete: function (e) {

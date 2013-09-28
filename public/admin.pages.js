@@ -89,6 +89,33 @@ $(function(){
         addAll: function () {
             this.$(".list").empty();
             this.collection.each(this.addOne, this);
+
+            //this.$("#xxx-nestable").nestable();
+            $('#xxx-nestable')
+            .nestable()
+            .on('change', function(e) {
+                console.log(e);
+//                var list   = e.length ? e : $(e.target),
+//                    output = list.data('output');
+//                if (window.JSON) {
+//                    output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+//                } else {
+//                    output.val('JSON browser support required for this demo.');
+//                }
+            });
+
+            $('#xxx-nestable-menu').on('click', function(e) {
+                var target = $(e.target),
+                    action = target.data('action');
+
+                if (action === 'expand-all') {
+                    $('#xxx-nestable').nestable('expandAll');
+                }
+
+                if (action === 'collapse-all') {
+                    $('#xxx-nestable').nestable('collapseAll');
+                }
+            });
         },
 
         _add: function(e) {
@@ -96,7 +123,7 @@ $(function(){
                 model: new app.models.Page,
                 collection: this.collection
             });
-            $("#container-item").empty().html(app.views.pageDetails.render().el);
+            $("#container-editing").empty().html(app.views.pageDetails.render().el);
         }
     });
 
@@ -130,7 +157,7 @@ $(function(){
                 model: this.model,
                 collection: app.collections.pages
             });
-            $("#container-item").empty().html(app.views.pageDetails.render().el);
+            $("#container-editing").empty().html(app.views.pageDetails.render().el);
         },
 
         _delete: function (e) {
