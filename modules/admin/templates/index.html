@@ -52,25 +52,8 @@
             <button type="button" class="action add">Add</button>
         </div>
 
-        <div class="entities list">
+        <div class="entities list nestable">
             <!-- This area will be filled by JavaScript -->
-        </div>
-
-        <div class="entities nestable">
-            <ol class="nestable-list">
-                <li class="nestable-item" data-id="1">
-                    <div class="nestable-handle"></div>
-                    <div class="item"><button type="button">tmp1</button></div>
-                </li>
-                <li class="nestable-item" data-id="2">
-                    <div class="nestable-handle"></div>
-                    <div class="item"><button type="button">tmp2</button></div>
-                </li>
-                <li class="nestable-item" data-id="3">
-                    <div class="nestable-handle"></div>
-                    <div class="item"><button type="button">tmp3</button></div>
-                </li>
-            </ol>
         </div>
     </script>
 
@@ -159,6 +142,27 @@
                 <label for="_published" class="label">Published</label>
                 <div class="control">
                     <input id="_published" name="published" type="checkbox" {{#employee.published}}checked="checked"{{/employee.published}} />
+
+
+                    <table cellspacing="0" class="data-table" id="group_prices_table">
+                        <thead>
+                        <tr>
+                            <th>Web Site</th>
+                            <th class="required">Customer Group</th>
+                            <th class="required">Price</th>
+                            <th class="col-delete">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="group_price_container"><tr><td><select class=" input-text required-entry" name="product[group_price][0][website_id]" id="group_price_row_0_website"><option value="0">All Websites [USD]</option></select></td><td><select class=" input-text custgroup required-entry" name="product[group_price][0][cust_group]" id="group_price_row_0_cust_group"><option value="0">NOT LOGGED IN</option><option value="1">General</option><option value="2">Wholesale</option><option value="3">Retailer</option></select></td><td><input class=" input-text required-entry validate-zero-or-greater" type="text" name="product[group_price][0][price]" value="" id="group_price_row_0_price"></td><td class="col-delete"><input type="hidden" name="product[group_price][0][delete]" class="delete" value="" id="group_price_row_0_delete"><button title="Delete Group Price" type="button" class="action- scalable delete icon-btn delete-product-option" id="group_price_row_0_delete_button" onclick="return groupPriceControl.deleteItem(event);"><span>Delete</span></button></td></tr></tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="4"><button id="id_8cba3ff9aa50955a8c7bb006b7891d5b" title="Add Group Price" type="button" class="action- scalable add" onclick="return groupPriceControl.addItem()" data-ui-id="widget-button-5">
+                                <span>Add Group Price</span>
+                            </button>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
 

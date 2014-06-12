@@ -9,7 +9,9 @@ $(function(){
         idAttribute: "_id",
 
         defaults: {
-            "published": true
+            "published": true,
+            "parent": null,
+            "position": 0
         },
 
         validate: function(attributes, options) {
@@ -81,13 +83,71 @@ $(function(){
             return this;
         },
 
+        prepareFuckingStuff: function() {
+            var buildTree = function(_parent, all) {
+                function getItemsByParent(_parent) {
+                    var _parent = _parent || null; // problem with undefined
+
+                    return _.sortBy(
+                        _.filter(all, function(element) {
+                            return (element.parent == _parent);
+                        }), "position");
+                }
+
+                function runner(children) {
+                    _.each(children, function(element) {
+                        var children = getItemsByParent(element._id); // _id
+
+                        if (children.length) {
+                            element.children = [];
+                            element.children.push(children);
+                            runner(children);
+                        }
+                    });
+
+                    return children;
+                }
+
+                return runner(getItemsByParent(_parent));
+            };
+
+            var a2 = buildTree(null, this.collection.toJSON());
+
+            function xxx(children) {
+                var result = '';
+
+                _.each(children, function(element, index, list) {
+                    if (index == 0) {
+                        result += '<ol class="nestable-list">';
+                    }
+
+                    result += '<li class="nestable-item" data-id="'+element._id+'"><div class="nestable-handle"></div>';
+
+                    if (element.children) {
+                        xxx(element.children);
+                    }
+
+                    result += '</li>';
+
+                    if (list.length == index+1) {
+                        result += '</ol>';
+                    }
+                });
+
+                return result;
+            }
+
+            this.$(".list").html(xxx(a2));
+        },
+
         addOne: function (model) {
             var view = new app.views.Page({model: model});
-            this.$(".list").append(view.render().el);
+            this.$(".list").find('[data-id="'+model.id+'"]').append(view.render().el);
         },
 
         addAll: function () {
             this.$(".list").empty();
+            this.prepareFuckingStuff();
             this.collection.each(this.addOne, this);
 
             this.$(".nestable")
@@ -103,11 +163,11 @@ $(function(){
                         action = target.data('action');
 
                     if (action === 'expand-all') {
-                        $('#xxx-nestable').nestable('expandAll');
+                        $('.nestable').nestable('expandAll');
                     }
 
                     if (action === 'collapse-all') {
-                        $('#xxx-nestable').nestable('collapseAll');
+                        $('.nestable').nestable('collapseAll');
                     }
                 });
         },
